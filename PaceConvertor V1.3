@@ -1,0 +1,39 @@
+import math
+from decimal import Decimal, ROUND_HALF_UP
+
+FROM_PACE_TO_SPEED = '1'
+FROM_SPEED_TO_PACE = '2'
+
+while True:
+
+    type = input("Для конвертації з темпу у швидкість натисніть 1. Для конвертації з швидкості в темп натисніть 2:    ")
+    val = input("Введіть значення, яке ви хочете конвертувати (км/год або хв/км):     ")
+
+
+    def convertFromSpeedToPace(val):
+        val = Decimal(val)
+        floatPace = 60 / val
+        roundedPace = round(floatPace, 2)
+        frac = roundedPace - int(roundedPace)
+        rightFrac = frac * 60
+        paceStr = f" {int(roundedPace)}:{int(rightFrac)}"
+        return paceStr
+
+    def convertFromPaceToSpeed(val):
+        val_dot = val.replace(':', '.')
+        val_dot = Decimal(val_dot)
+        floatSpeed = 60 / val_dot
+        roundedSpeed = round(floatSpeed, 2)
+        return roundedSpeed
+
+    def paceConvertor(val, type):
+        if type == FROM_SPEED_TO_PACE:
+            return convertFromSpeedToPace(val)
+        elif type == FROM_PACE_TO_SPEED:
+            return convertFromPaceToSpeed(val)
+        else :
+            return ("Введіть коректне значення.")
+
+
+
+    print(paceConvertor(val, type))
